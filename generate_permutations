@@ -1,0 +1,43 @@
+BAC - maitain unik - ABC
+fix A --> generate perm (BAC)  - take out 'A' from unik (BC)
+fix B --> generate perm (AAC) - take out 'B' from unik (C)
+fix A  --> skip this ( ) - as 'A' is not unik that means this has been run through. We need to skip this to avoid duplicates
+fix X --> generate perm (ABA) - take out 'C' from unik (empty now)
+
+def perm_nodup(word):
+    if len(word) == 0:
+        return []
+    elif len(word) == 1:
+        return [word]
+    else:
+    l=[]
+        unik="".join(set(word))
+        for i in xrange(0,len(word)):
+            x = word[i];
+            print unik, x
+            if unik.find(x) != -1:
+                xs = word[:i] + word[i+1:]
+                for p in perm_nodup(xs):
+                    l.append(x+p)
+                unik = unik.replace(x,"");
+        return l
+perm_nodup("ABA")
+
+['ABA', 'AAB', 'BAA']
+
+
+def perm2(word):
+    if len(word) == 0:
+        return []
+    elif len(word) == 1:
+        return [word]
+    else:
+        l = []
+        for i in range(len(word)):
+            x=word[i]
+            xs = word[:i] + word[i+1:]
+            #print xs
+            for p in perm2(xs):
+                l.append(x+p)
+        return l
+
